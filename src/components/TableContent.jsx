@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditModal from "./EditModal";
 
-const TableContent = ({ checked, data, setData }) => {
+const TableContent = ({ checked }) => {
+  const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
   const [editItem, setEditItem] = useState(null);
-  const [viewItem, setViewItem] = useState(false);
+  const [viewItems, setViewItems] = useState({}); // State to keep track of view state
 
   useEffect(() => {
     axios
@@ -19,12 +20,10 @@ const TableContent = ({ checked, data, setData }) => {
       .catch((error) => {
         setError(error.response.statusText);
       });
-    // eslint-disable-next-line
   }, []);
 
-  const handleEdit = (index, isView) => {
+  const handleEdit = (index) => {
     if (!checked) {
-      setViewItem(isView);
       setEditItem({ ...data[index], index });
       setIsModalOpen(true);
     }
@@ -50,6 +49,15 @@ const TableContent = ({ checked, data, setData }) => {
     setData(updatedData);
     localStorage.setItem("tableData", JSON.stringify(updatedData));
     handleModalClose();
+  };
+
+  const handleDisable = (index) => {
+    if (!checked) {
+      setViewItems((prevViewItems) => ({
+        ...prevViewItems,
+        [index]: !prevViewItems[index],
+      }));
+    }
   };
 
   return (
@@ -105,19 +113,30 @@ const TableContent = ({ checked, data, setData }) => {
               <td className="p-6">
                 <i
                   className={`mx-2 cursor-pointer fa-solid fa-pen ${
-                    checked ? "cursor-not-allowed" : "cursor-pointer"
+                    checked || viewItems[index]
+                      ? "cursor-not-allowed"
+                      : "cursor-pointer text-[#377D23]"
                   }`}
-                  onClick={() => handleEdit(index, false)}
+                  onClick={() => handleEdit(index)}
                 ></i>
                 <i
-                  onClick={() => handleEdit(index, true)}
-                  className={`mx-2 cursor-pointer fa-solid fa-eye ${
-                    checked ? "cursor-not-allowed" : "cursor-pointer"
+                  className={`mx-2 ${
+                    viewItems[index]
+                      ? "fa-solid fa-eye-slash"
+                      : "fa-solid fa-eye"
+                  } ${
+                    checked || viewItems[index]
+                      ? "cursor-not-allowed"
+                      : "cursor-pointer text-[#C597D4]"
                   }`}
+                  onClick={() => handleDisable(index)}
                 ></i>
+
                 <i
                   className={`mx-2 fa-solid fa-trash ${
-                    checked ? "cursor-not-allowed" : "cursor-pointer"
+                    checked || viewItems[index]
+                      ? "cursor-not-allowed"
+                      : "cursor-pointer text-[#EB3323]"
                   }`}
                   onClick={() => handleDelete(index)}
                 ></i>
@@ -131,7 +150,6 @@ const TableContent = ({ checked, data, setData }) => {
           item={editItem}
           onSave={handleSave}
           onClose={handleModalClose}
-          viewItem={viewItem}
         />
       )}
     </div>

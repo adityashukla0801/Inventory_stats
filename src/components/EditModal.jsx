@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EditModal = ({ item, onSave, onClose, viewItem }) => {
+const EditModal = ({ item, onSave, onClose }) => {
   const [editedItem, setEditedItem] = useState(item);
 
   const handleChange = (e) => {
@@ -16,7 +16,7 @@ const EditModal = ({ item, onSave, onClose, viewItem }) => {
     <div className="bg-[#292B27] fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-[#292B27] p-8 rounded-xl w-[30%]">
         <div className="rounded-xl mb-4 flex justify-between">
-          <p className="text-4xl">{viewItem ? "View" : "Edit"} Product</p>
+          <p className="text-4xl">Edit Product</p>
           <div
             onClick={onClose}
             className="cursor-pointer rounded-lg py-2 px-4 bg-[#333] text-[#DEFF55]"
@@ -30,7 +30,6 @@ const EditModal = ({ item, onSave, onClose, viewItem }) => {
             <div className="mb-4 w-full">
               <label className="block mb-2 text-[#C2C2C1]">Category</label>
               <input
-                disabled={viewItem}
                 type="text"
                 name="category"
                 value={editedItem.category}
@@ -41,7 +40,6 @@ const EditModal = ({ item, onSave, onClose, viewItem }) => {
             <div className="mb-4 w-full">
               <label className="block mb-2 text-[#C2C2C1]">Price</label>
               <input
-                disabled={viewItem}
                 type="text"
                 name="price"
                 value={editedItem.price}
@@ -54,7 +52,6 @@ const EditModal = ({ item, onSave, onClose, viewItem }) => {
             <div className="mb-4 w-full">
               <label className="block mb-2 text-[#C2C2C1]">Quantity</label>
               <input
-                disabled={viewItem}
                 type="number"
                 name="quantity"
                 value={editedItem.quantity}
@@ -65,7 +62,6 @@ const EditModal = ({ item, onSave, onClose, viewItem }) => {
             <div className="mb-4 w-full">
               <label className="block mb-2 text-[#C2C2C1]">Value</label>
               <input
-                disabled={viewItem}
                 type="text"
                 name="value"
                 value={editedItem.value}
@@ -79,14 +75,13 @@ const EditModal = ({ item, onSave, onClose, viewItem }) => {
             <button onClick={onClose} className="text-[#A0B845]">
               Cancel
             </button>
-            {!viewItem && (
-              <button
-                className="bg-[#434541] text-[#60625F] px-4 py-2 rounded-xl hover:text-white"
-                type="submit"
-              >
-                Save
-              </button>
-            )}
+
+            <button
+              className="bg-[#434541] text-[#60625F] px-4 py-2 rounded-xl hover:text-white"
+              type="submit"
+            >
+              Save
+            </button>
           </div>
         </form>
       </div>
