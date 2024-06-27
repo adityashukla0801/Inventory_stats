@@ -112,7 +112,7 @@ const TableContent = ({ checked, data, setData }) => {
               <td className="p-6">{item.value}</td>
               <td className="p-6">
                 <i
-                  className={`mx-2 cursor-pointer fa-solid fa-pen ${
+                  className={`mx-2 fa-solid fa-pen ${
                     checked || viewItems[index]
                       ? "cursor-not-allowed"
                       : "cursor-pointer text-[#377D23]"

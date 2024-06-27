@@ -34,7 +34,7 @@ const EditModal = ({ item, onSave, onClose }) => {
                 name="category"
                 value={editedItem.category}
                 onChange={handleChange}
-                className="rounded-xl px-4 py-2 w-full text-black bg-[#3F413D] text-[#C2C2C1]"
+                className="rounded-xl px-4 py-2 w-full bg-[#3F413D] text-[#C2C2C1]"
               />
             </div>
             <div className="mb-4 w-full">
@@ -44,7 +44,7 @@ const EditModal = ({ item, onSave, onClose }) => {
                 name="price"
                 value={editedItem.price}
                 onChange={handleChange}
-                className="rounded-xl px-4 py-2 w-full text-black bg-[#3F413D] text-[#C2C2C1]"
+                className="rounded-xl px-4 py-2 w-full bg-[#3F413D] text-[#C2C2C1]"
               />
             </div>
           </div>
@@ -56,7 +56,7 @@ const EditModal = ({ item, onSave, onClose }) => {
                 name="quantity"
                 value={editedItem.quantity}
                 onChange={handleChange}
-                className="rounded-xl px-4 py-2 w-full text-black bg-[#3F413D] text-[#C2C2C1]"
+                className="rounded-xl px-4 py-2 w-full bg-[#3F413D] text-[#C2C2C1]"
               />
             </div>
             <div className="mb-4 w-full">
@@ -66,7 +66,7 @@ const EditModal = ({ item, onSave, onClose }) => {
                 name="value"
                 value={editedItem.value}
                 onChange={handleChange}
-                className="rounded-xl px-4 py-2 w-full text-black bg-[#3F413D] text-[#C2C2C1]"
+                className="rounded-xl px-4 py-2 w-full bg-[#3F413D] text-[#C2C2C1]"
               />
             </div>
           </div>
