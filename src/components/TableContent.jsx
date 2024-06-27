@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditModal from "./EditModal";
 
-const TableContent = ({ checked }) => {
-  const [data, setData] = useState([]);
+const TableContent = ({ checked, data, setData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
   const [editItem, setEditItem] = useState(null);
@@ -20,17 +19,18 @@ const TableContent = ({ checked }) => {
       .catch((error) => {
         setError(error.response.statusText);
       });
+    // eslint-disable-next-line
   }, []);
 
   const handleEdit = (index) => {
-    if (!checked) {
+    if (!(checked || viewItems[index])) {
       setEditItem({ ...data[index], index });
       setIsModalOpen(true);
     }
   };
 
   const handleDelete = (index) => {
-    if (!checked) {
+    if (!(checked || viewItems[index])) {
       const updatedData = data.filter((_, i) => i !== index);
       setData(updatedData);
       localStorage.setItem("tableData", JSON.stringify(updatedData));
@@ -120,14 +120,12 @@ const TableContent = ({ checked }) => {
                   onClick={() => handleEdit(index)}
                 ></i>
                 <i
-                  className={`mx-2 ${
+                  className={`mx-2  ${
                     viewItems[index]
                       ? "fa-solid fa-eye-slash"
                       : "fa-solid fa-eye"
-                  } ${
-                    checked || viewItems[index]
-                      ? "cursor-not-allowed"
-                      : "cursor-pointer text-[#C597D4]"
+                  } ${checked || viewItems[index] ? "" : "text-[#C597D4]"} ${
+                    checked ? "cursor-not-allowed" : "cursor-pointer"
                   }`}
                   onClick={() => handleDisable(index)}
                 ></i>
